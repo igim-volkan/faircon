@@ -282,7 +282,8 @@ export default function Home() {
               type="date"
               value={newFairDate}
               onChange={(e) => setNewFairDate(e.target.value)}
-              className="px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-white"
+              className="px-4 py-2 bg-zinc-950 border border-zinc-800 rounded-lg text-white cursor-pointer"
+              style={{ colorScheme: "dark" }}
               required
             />
             <button type="submit" className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium flex items-center gap-2">
