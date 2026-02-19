@@ -215,7 +215,7 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                             <CheckCircle className="w-3.5 h-3.5 md:w-5 md:h-5 text-white absolute top-0.5 left-0.5 md:top-1 md:left-1 opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
                         </div>
                         <span className="text-sm md:text-lg text-zinc-400 group-hover:text-zinc-300 transition-colors select-none leading-tight">
-                            E-posta adresimin paylaşılmasını ve bana ulaşılmasını kabul ediyorum.
+                            E-posta adresimden bana ulaşılmasını kabul ediyorum.
                         </span>
                     </label>
                 </div>
