@@ -88,12 +88,12 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
     }
 
     return (
-        <div className="w-full max-w-md bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-2xl p-6 md:p-8 shadow-xl">
+        <div className="w-full max-w-md md:max-w-2xl bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-2xl p-6 md:p-10 shadow-xl">
             <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                     Hoş Geldiniz
                 </h1>
-                <p className="text-zinc-400 mt-2">Lütfen iletişim bilgilerinizi bizimle paylaşın.</p>
+                <p className="text-zinc-400 mt-2 md:text-xl">Lütfen iletişim bilgilerinizi bizimle paylaşın.</p>
             </div>
 
             <BusinessCardScanner onScanSuccess={handleScanSuccess} />
@@ -110,7 +110,7 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-medium text-zinc-300">Ad</label>
+                        <label htmlFor="name" className="text-sm md:text-lg font-medium text-zinc-300">Ad</label>
                         <input
                             id="name"
                             name="name"
@@ -118,12 +118,12 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
+                            className="w-full px-3 py-2 md:px-5 md:py-4 md:text-lg bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
                             placeholder="Adınız"
                         />
                     </div>
                     <div className="space-y-2">
-                        <label htmlFor="surname" className="text-sm font-medium text-zinc-300">Soyad</label>
+                        <label htmlFor="surname" className="text-sm md:text-lg font-medium text-zinc-300">Soyad</label>
                         <input
                             id="surname"
                             name="surname"
@@ -131,7 +131,7 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                             required
                             value={formData.surname}
                             onChange={handleChange}
-                            className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
+                            className="w-full px-3 py-2 md:px-5 md:py-4 md:text-lg bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
                             placeholder="Soyadınız"
                         />
                     </div>
@@ -139,33 +139,33 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
 
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label htmlFor="company" className="text-sm font-medium text-zinc-300">Şirket <span className="text-zinc-500 font-normal">(İsteğe bağlı)</span></label>
+                        <label htmlFor="company" className="text-sm md:text-lg font-medium text-zinc-300">Şirket <span className="text-zinc-500 font-normal">(İsteğe bağlı)</span></label>
                         <input
                             id="company"
                             name="company"
                             type="text"
                             value={formData.company}
                             onChange={handleChange}
-                            className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
+                            className="w-full px-3 py-2 md:px-5 md:py-4 md:text-lg bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
                             placeholder="Şirket Adı"
                         />
                     </div>
                     <div className="space-y-2">
-                        <label htmlFor="title" className="text-sm font-medium text-zinc-300">Ünvan <span className="text-zinc-500 font-normal">(İsteğe bağlı)</span></label>
+                        <label htmlFor="title" className="text-sm md:text-lg font-medium text-zinc-300">Ünvan <span className="text-zinc-500 font-normal">(İsteğe bağlı)</span></label>
                         <input
                             id="title"
                             name="title"
                             type="text"
                             value={formData.title}
                             onChange={handleChange}
-                            className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
+                            className="w-full px-3 py-2 md:px-5 md:py-4 md:text-lg bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
                             placeholder="Ünvanınız"
                         />
                     </div>
                 </div>
 
                 <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-zinc-300">E-posta</label>
+                    <label htmlFor="email" className="text-sm md:text-lg font-medium text-zinc-300">E-posta</label>
                     <input
                         id="email"
                         name="email"
@@ -173,7 +173,7 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
+                        className="w-full px-3 py-2 md:px-5 md:py-4 md:text-lg bg-zinc-950 border border-zinc-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all text-white placeholder:text-zinc-600"
                         placeholder="ornek@sirket.com"
                     />
                 </div>
@@ -182,20 +182,20 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                     <button
                         type="button"
                         onClick={() => setIsSurveyOpen(true)}
-                        className={`w-full py-3 rounded-lg border-2 border-dashed transition-all flex items-center justify-center gap-2 ${surveyAnswers
+                        className={`w-full py-3 md:py-5 rounded-lg border-2 border-dashed transition-all flex items-center justify-center gap-2 ${surveyAnswers
                             ? "border-green-500/50 bg-green-500/10 text-green-400"
                             : "border-zinc-700 hover:border-blue-500 hover:bg-blue-500/5 text-zinc-400 hover:text-blue-400"
                             }`}
                     >
                         {surveyAnswers ? (
                             <>
-                                <CheckCircle className="w-5 h-5" />
-                                <span className="font-medium">Anket Tamamlandı</span>
+                                <CheckCircle className="w-5 h-5 md:w-8 md:h-8" />
+                                <span className="font-medium md:text-xl">Anket Tamamlandı</span>
                             </>
                         ) : (
                             <>
-                                <ClipboardList className="w-5 h-5" />
-                                <span className="font-medium">Ankete katılmak istiyorum</span>
+                                <ClipboardList className="w-5 h-5 md:w-8 md:h-8" />
+                                <span className="font-medium md:text-xl">Ankete katılmak istiyorum</span>
                             </>
                         )}
                     </button>
@@ -211,10 +211,10 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                                 onChange={handleChange}
                                 className="peer sr-only"
                             />
-                            <div className="w-5 h-5 border-2 border-zinc-600 rounded peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"></div>
-                            <CheckCircle className="w-3.5 h-3.5 text-white absolute top-0.5 left-0.5 opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
+                            <div className="w-5 h-5 md:w-7 md:h-7 border-2 border-zinc-600 rounded peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all"></div>
+                            <CheckCircle className="w-3.5 h-3.5 md:w-5 md:h-5 text-white absolute top-0.5 left-0.5 md:top-1 md:left-1 opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
                         </div>
-                        <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors select-none leading-tight">
+                        <span className="text-sm md:text-lg text-zinc-400 group-hover:text-zinc-300 transition-colors select-none leading-tight">
                             E-posta adresimin paylaşılmasını ve bana ulaşılmasını kabul ediyorum.
                         </span>
                     </label>
@@ -230,9 +230,9 @@ export default function ContactForm({ fairId = "default-fair" }: ContactFormProp
                 <button
                     type="submit"
                     disabled={status === "submitting"}
-                    className="w-full py-2.5 bg-white text-zinc-950 rounded-lg font-semibold hover:bg-zinc-200 focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+                    className="w-full py-2.5 md:py-5 bg-white text-zinc-950 rounded-lg font-bold md:text-xl hover:bg-zinc-200 focus:ring-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
                 >
-                    {status === "submitting" && <Loader2 className="w-4 h-4 animate-spin" />}
+                    {status === "submitting" && <Loader2 className="w-4 h-4 md:w-6 md:h-6 animate-spin" />}
                     {status === "submitting" ? "Kaydediliyor..." : "Kaydet"}
                 </button>
             </form>
