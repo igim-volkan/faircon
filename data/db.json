@@ -1,0 +1,72 @@
+{
+  "customers": [
+    {
+      "id": "1771521058156",
+      "name": "Test Customer",
+      "createdAt": "2026-02-19T17:10:58.156Z"
+    },
+    {
+      "id": "1771522439635",
+      "name": "aksisfire",
+      "createdAt": "2026-02-19T17:33:59.635Z"
+    },
+    {
+      "id": "1771522801057",
+      "name": "DB Test Customer",
+      "createdAt": "2026-02-19T17:40:01.057Z"
+    }
+  ],
+  "fairs": [
+    {
+      "id": "1771521197135",
+      "customerId": "1771521058156",
+      "name": "Subat Fuari",
+      "slug": "subat-fuari",
+      "date": "2024-02-20",
+      "createdAt": "2026-02-19T17:13:17.135Z"
+    },
+    {
+      "id": "1771522469421",
+      "customerId": "1771522439635",
+      "name": "boat show 26",
+      "slug": "boat-show-26",
+      "date": "2026-02-21",
+      "createdAt": "2026-02-19T17:34:29.421Z"
+    },
+    {
+      "id": "1771522886041",
+      "customerId": "1771522801057",
+      "name": "DB Test Fair",
+      "slug": "db-test-fair",
+      "date": "2025-05-15",
+      "createdAt": "2026-02-19T17:41:26.041Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "1771522246898",
+      "fairId": "1771521197135",
+      "name": "ApiFix",
+      "surname": "Worked",
+      "email": "api@fix.com",
+      "consent": true,
+      "date": "2026-02-19T17:30:46.898Z",
+      "surveyAnswers": {
+        "q1": "Evet",
+        "q2": "Evet",
+        "q3": "5"
+      }
+    },
+    {
+      "id": "1771522914296",
+      "fairId": "1771522886041",
+      "name": "DB",
+      "surname": "Person",
+      "email": "db@person.com",
+      "company": "Test Corp",
+      "title": "Developer",
+      "consent": true,
+      "date": "2026-02-19T17:41:54.296Z"
+    }
+  ]
+}

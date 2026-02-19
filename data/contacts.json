@@ -1,0 +1,45 @@
+[
+  {
+    "id": "1771519259423",
+    "name": "Test",
+    "surname": "User",
+    "email": "test@example.com",
+    "consent": true,
+    "date": "2026-02-19T16:40:59.423Z"
+  },
+  {
+    "id": "1771520215260",
+    "name": "Survey2",
+    "surname": "Tester2",
+    "email": "survey2@test.com",
+    "consent": true,
+    "date": "2026-02-19T16:56:55.260Z",
+    "surveyAnswers": {
+      "q1": "Evet",
+      "q2": "Hayır",
+      "q3": "3"
+    }
+  },
+  {
+    "id": "1771520714431",
+    "name": "Business",
+    "surname": "User",
+    "email": "cto@techcorp.com",
+    "consent": true,
+    "date": "2026-02-19T17:05:14.431Z",
+    "company": "TechCorp",
+    "title": "CTO",
+    "surveyAnswers": null
+  },
+  {
+    "id": "1771521496931",
+    "name": "Multi",
+    "surname": "Tenant",
+    "email": "multi@tenant.com",
+    "consent": true,
+    "date": "2026-02-19T17:18:16.931Z",
+    "company": "Cloud Co",
+    "title": "Dev",
+    "surveyAnswers": null
+  }
+]
