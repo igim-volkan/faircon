@@ -1,41 +1,77 @@
 import { NextResponse } from 'next/server';
-import { readDB, writeDB } from '@/lib/storage';
-import { Contact } from '@/lib/types';
+import { db } from '@/lib/db';
 
 export async function POST(
     request: Request,
     { params }: { params: Promise<{ fairId: string }> }
 ) {
-    const body = await request.json();
-    const { fairId } = await params;
+    try {
+        const body = await request.json();
+        const { fairId } = await params;
+        const { name, surname, email, company, title, consent, surveyAnswers } = body;
 
-    const db = await readDB();
+        let targetFairId = fairId;
 
-    // Validate fair exists
-    const fairExists = db.fairs.some(f => f.id === fairId);
-    if (!fairExists) {
-        return NextResponse.json({ error: 'Fair not found' }, { status: 404 });
+        // Auto-create Fair if it's the homepage and doesn't exist
+        if (fairId === 'homepage') {
+            let fair = await db.fair.findUnique({
+                where: { id: 'homepage' }
+            });
+
+            if (!fair) {
+                // Ensure a default customer exists
+                let customer = await db.customer.findFirst({
+                    orderBy: { createdAt: 'asc' }
+                });
+
+                if (!customer) {
+                    customer = await db.customer.create({
+                        data: {
+                            name: 'Default Customer',
+                        }
+                    });
+                }
+
+                fair = await db.fair.create({
+                    data: {
+                        id: 'homepage',
+                        name: 'Web Sitesi İletişim Formu',
+                        date: new Date().toISOString(),
+                        slug: 'homepage-fair',
+                        customerId: customer.id
+                    }
+                });
+            }
+            targetFairId = fair.id;
+        }
+
+        // Validate fair exists for other IDs
+        const fairExists = await db.fair.findUnique({
+            where: { id: targetFairId }
+        });
+
+        if (!fairExists) {
+            return NextResponse.json({ error: 'Fair not found' }, { status: 404 });
+        }
+
+        const newContact = await db.contact.create({
+            data: {
+                fairId: targetFairId,
+                name,
+                surname,
+                email,
+                company: company || null,
+                title: title || null,
+                consent,
+                surveyAnswers: surveyAnswers ? JSON.stringify(surveyAnswers) : null,
+            }
+        });
+
+        return NextResponse.json(newContact);
+    } catch (error) {
+        console.error('Error creating contact:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
-
-    const { name, surname, email, consent, company, title } = body;
-
-    const newContact: Contact = {
-        id: Date.now().toString(),
-        fairId,
-        name,
-        surname,
-        email,
-        company: company || undefined,
-        title: title || undefined,
-        consent,
-        date: new Date().toISOString(),
-        surveyAnswers: body.surveyAnswers || undefined,
-    };
-
-    db.contacts.push(newContact);
-    await writeDB(db);
-
-    return NextResponse.json(newContact);
 }
 
 export async function GET(
@@ -43,14 +79,18 @@ export async function GET(
     { params }: { params: Promise<{ fairId: string }> }
 ) {
     const { fairId } = await params;
-    const db = await readDB();
 
     // Validate fair exists (optional, but good practice)
-    const fairExists = db.fairs.some(f => f.id === fairId);
-    if (!fairExists) {
+    const fair = await db.fair.findUnique({
+        where: { id: fairId }
+    });
+
+    if (!fair) {
         return NextResponse.json({ error: 'Fair not found' }, { status: 404 });
     }
 
-    const contacts = db.contacts.filter(c => c.fairId === fairId);
+    const contacts = await db.contact.findMany({
+        where: { fairId }
+    });
     return NextResponse.json(contacts);
 }
