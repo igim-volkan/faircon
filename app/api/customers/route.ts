@@ -1,29 +1,34 @@
 import { NextResponse } from 'next/server';
-import { readDB, writeDB } from '@/lib/storage';
-import { Customer } from '@/lib/types';
+import { db } from '@/lib/db';
 
 export async function GET() {
-    const db = await readDB();
-    return NextResponse.json(db.customers);
+    try {
+        const customers = await db.customer.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        return NextResponse.json(customers);
+    } catch (error) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const { name } = body;
+    try {
+        const body = await request.json();
+        const { name } = body;
 
-    if (!name) {
-        return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+        if (!name) {
+            return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+        }
+
+        const newCustomer = await db.customer.create({
+            data: {
+                name,
+            }
+        });
+
+        return NextResponse.json(newCustomer);
+    } catch (error) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
-
-    const db = await readDB();
-    const newCustomer: Customer = {
-        id: Date.now().toString(),
-        name,
-        createdAt: new Date().toISOString(),
-    };
-
-    db.customers.push(newCustomer);
-    await writeDB(db);
-
-    return NextResponse.json(newCustomer);
 }

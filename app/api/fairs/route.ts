@@ -1,48 +1,55 @@
 import { NextResponse } from 'next/server';
-import { readDB, writeDB } from '@/lib/storage';
-import { Fair } from '@/lib/types';
+import { db } from '@/lib/db';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const customerId = searchParams.get('customerId');
 
-    const db = await readDB();
+    try {
+        if (customerId) {
+            const fairs = await db.fair.findMany({
+                where: { customerId },
+                orderBy: { date: 'desc' }
+            });
+            return NextResponse.json(fairs);
+        }
 
-    if (customerId) {
-        const fairs = db.fairs.filter(f => f.customerId === customerId);
+        const fairs = await db.fair.findMany({
+            orderBy: { date: 'desc' }
+        });
         return NextResponse.json(fairs);
+    } catch (error) {
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
-
-    return NextResponse.json(db.fairs);
 }
 
 export async function POST(request: Request) {
-    const body = await request.json();
-    const { customerId, name, date } = body;
+    try {
+        const body = await request.json();
+        const { customerId, name, date } = body;
 
-    if (!customerId || !name || !date) {
-        return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        if (!customerId || !name || !date) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        }
+
+        // Simple slug generation
+        const slug = name
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '') + '-' + Date.now(); // Ensure uniqueness
+
+        const newFair = await db.fair.create({
+            data: {
+                customerId,
+                name,
+                slug,
+                date,
+            }
+        });
+
+        return NextResponse.json(newFair);
+    } catch (error) {
+        console.error('Error creating fair:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
-
-    const db = await readDB();
-
-    // Simple slug generation
-    const slug = name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '');
-
-    const newFair: Fair = {
-        id: Date.now().toString(),
-        customerId,
-        name,
-        slug,
-        date,
-        createdAt: new Date().toISOString(),
-    };
-
-    db.fairs.push(newFair);
-    await writeDB(db);
-
-    return NextResponse.json(newFair);
 }
