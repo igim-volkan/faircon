@@ -256,10 +256,10 @@ export default function Home() {
                 className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <Building2 className="w-8 h-8 text-zinc-500 group-hover:text-blue-400 transition-colors" />
-                  <span className="text-xs text-zinc-600">{new Date(customer.createdAt).toLocaleDateString()}</span>
+                  <Building2 className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
+                  <span className="text-xs md:text-sm text-zinc-600">{new Date(customer.createdAt).toLocaleDateString()}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">{customer.name}</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{customer.name}</h3>
               </button>
             ))}
           </div>
@@ -300,10 +300,10 @@ export default function Home() {
                 className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <Calendar className="w-8 h-8 text-zinc-500 group-hover:text-blue-400 transition-colors" />
-                  <span className="text-xs text-zinc-600">{new Date(fair.date).toLocaleDateString()}</span>
+                  <Calendar className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
+                  <span className="text-xs md:text-sm text-zinc-600">{new Date(fair.date).toLocaleDateString()}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">{fair.name}</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{fair.name}</h3>
                 <div className="mt-2 text-sm text-zinc-500">
                   Link: /f/{fair.id}
                 </div>
