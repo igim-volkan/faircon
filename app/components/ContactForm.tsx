@@ -6,10 +6,10 @@ import BusinessCardScanner from "./BusinessCardScanner";
 import SurveyModal, { SurveyAnswers } from "./SurveyModal";
 
 interface ContactFormProps {
-    fairId: string;
+    fairId?: string;
 }
 
-export default function ContactForm({ fairId }: ContactFormProps) {
+export default function ContactForm({ fairId = "default-fair" }: ContactFormProps) {
     const [formData, setFormData] = useState({
         name: "",
         surname: "",
