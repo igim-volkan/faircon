@@ -105,15 +105,16 @@ export default function Home() {
     setLoading(false);
   };
 
-  // Navigation Handlers
   const openCustomer = (customer: Customer) => {
     setSelectedCustomer(customer);
+    setFairs([]); // Gecikmeyi gizlemek ve eski veriyi göstermemek için listeyi temizliyoruz
     fetchFairs(customer.id);
     setView("fairs");
   };
 
   const openFair = (fair: Fair) => {
     setSelectedFair(fair);
+    setContacts([]); // Gecikmeyi gizlemek ve eski veriyi göstermemek için listeyi temizliyoruz
     fetchContacts(fair.id);
     setView("contacts");
   };
@@ -206,7 +207,7 @@ export default function Home() {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
           {view !== "customers" && (
-            <button onClick={goBack} className="p-2 hover:bg-zinc-800 rounded-full transition-colors">
+            <button onClick={goBack} className="p-2 hover:bg-zinc-800 rounded-full transition-colors cursor-pointer">
               <ArrowLeft className="w-5 h-5 text-zinc-400" />
             </button>
           )}
@@ -263,21 +264,25 @@ export default function Home() {
           </form>
 
           {/* Customer List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {customers.map(customer => (
-              <button
-                key={customer.id}
-                onClick={() => openCustomer(customer)}
-                className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <Building2 className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
-                  <span className="text-xs md:text-sm text-zinc-600">{new Date(customer.createdAt).toLocaleDateString()}</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{customer.name}</h3>
-              </button>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center text-zinc-500 py-8 animate-pulse">Müşteriler yükleniyor...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {customers.map(customer => (
+                <button
+                  key={customer.id}
+                  onClick={() => openCustomer(customer)}
+                  className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <Building2 className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
+                    <span className="text-xs md:text-sm text-zinc-600">{new Date(customer.createdAt).toLocaleDateString()}</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{customer.name}</h3>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -307,24 +312,28 @@ export default function Home() {
           </form>
 
           {/* Fair List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {fairs.map(fair => (
-              <button
-                key={fair.id}
-                onClick={() => openFair(fair)}
-                className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <Calendar className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
-                  <span className="text-xs md:text-sm text-zinc-600">{new Date(fair.date).toLocaleDateString()}</span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{fair.name}</h3>
-                <div className="mt-2 text-sm text-zinc-500">
-                  Link: /f/{fair.id}
-                </div>
-              </button>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center text-zinc-500 py-8 animate-pulse">Fuarlar yükleniyor...</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {fairs.map(fair => (
+                <button
+                  key={fair.id}
+                  onClick={() => openFair(fair)}
+                  className="p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800 transition-all text-left group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <Calendar className="w-8 h-8 md:w-10 md:h-10 text-zinc-500 group-hover:text-blue-400 transition-colors" />
+                    <span className="text-xs md:text-sm text-zinc-600">{new Date(fair.date).toLocaleDateString()}</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{fair.name}</h3>
+                  <div className="mt-2 text-sm text-zinc-500">
+                    Link: /f/{fair.id}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -344,7 +353,13 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-800">
-                {contacts.length === 0 ? (
+                {loading ? (
+                  <tr>
+                    <td colSpan={7} className="px-6 py-8 text-center text-zinc-500 animate-pulse">
+                      Kayıtlar yükleniyor...
+                    </td>
+                  </tr>
+                ) : contacts.length === 0 ? (
                   <tr>
                     <td colSpan={7} className="px-6 py-8 text-center text-zinc-500">
                       Bu fuar için henüz kayıt bulunmuyor.
