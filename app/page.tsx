@@ -70,7 +70,12 @@ export default function Home() {
     setLoading(true);
     const res = await fetch("/api/customers");
     const data = await res.json();
-    setCustomers(data);
+    if (Array.isArray(data)) {
+      setCustomers(data);
+    } else {
+      console.error("Failed to fetch customers:", data);
+      setCustomers([]);
+    }
     setLoading(false);
   };
 
@@ -78,7 +83,12 @@ export default function Home() {
     setLoading(true);
     const res = await fetch(`/api/fairs?customerId=${customerId}`);
     const data = await res.json();
-    setFairs(data);
+    if (Array.isArray(data)) {
+      setFairs(data);
+    } else {
+      console.error("Failed to fetch fairs:", data);
+      setFairs([]);
+    }
     setLoading(false);
   };
 
@@ -86,7 +96,12 @@ export default function Home() {
     setLoading(true);
     const res = await fetch(`/api/fairs/${fairId}/contacts`);
     const data = await res.json();
-    setContacts(data.reverse());
+    if (Array.isArray(data)) {
+      setContacts(data.reverse());
+    } else {
+      console.error("Failed to fetch contacts:", data);
+      setContacts([]);
+    }
     setLoading(false);
   };
 

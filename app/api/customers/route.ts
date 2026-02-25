@@ -8,6 +8,7 @@ export async function GET() {
         });
         return NextResponse.json(customers);
     } catch (error) {
+        console.error("GET /api/customers error:", error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
